@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
+
+    <!--My CSS-->
+    <link href="{{ url_for('static', filename='css/main.css') }}" rel="stylesheet" type="text/css">
+
+    <!--UIKit CSS-->
+    <link href="{{ url_for('static', filename='css/uikit.min.css') }}" rel="stylesheet"/>
+
+    <!--Semantic-UI-->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css" rel="stylesheet"
+          type="text/css">
+
+    <!--    &lt;!&ndash;Node.js <NPM>&ndash;&gt;-->
+    <!--    <link rel="stylesheet" type="text/css" href="semantic/dist/semantic.min.css">-->
+
+    <!-- Bootstrap CSS -->
+    <link crossorigin="anonymous" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" rel="stylesheet">
+
+    <link crossorigin="anonymous" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"
+          integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" rel="stylesheet">
+
+    <link href="{{ url_for('static', filename= 'site_pics/site_logo_2_trans_dark.png') }}" rel="icon">
+
+    {% if title %}
+    <title>ADF - {{ title }}</title>
+    {% else %}
+    <title>ADF</title>
+    {% endif %}
+
+    {{ moment.include_jquery() }}
+    {{ moment.include_moment() }}
+</head>
+
+<body>
+
+<header class="site-header">
+    <nav class="navbar fixed-top">
+        <div class="container">
+            <div class="brand">
+                <a href="{{ url_for('main.home') }}"><img height="55"
+                                                          id="brand-logo" src="/static/site_pics/site_logo_1_trans.png"
+                                                          width="55"></a>
+                <!--                    <a href="{{ url_for('main.home') }}">African Developers Forum</a>-->
+            </div>
+            <div class="toggle">
+                <i aria-hidden="true" class="fa fa-bars"></i>
+            </div>
+            <ul class="ui nav pull-right">
+                <!--<li><a class="nav-link" href="{{ url_for('main.home') }}">Home</a></li>-->
+
+                {% if current_user.is_authenticated %}
+                {% if current_user.can(Permission.MODERATE_COMMENTS) and not
+                current_user.can(Permission.ADMINISTRATOR) %}
+                <li><a class="nav-link" href="{{ url_for('posts.new_post') }}"><i class="pen square icon"></i>New
+                    Post</a></li>
+                <li><a class="nav-link" href="{{ url_for('users.account') }}"><i class="smile icon"></i>Profile</a>
+                </li>
+                <li><a class="nav-link" href="{{ url_for('posts.moderate') }}">Moderate Comments</a></li>
+                <li><a class="nav-link" href="{{ url_for('users.logout') }}"><i class="sign-in icon"></i>Logout</a>
+                </li>
+                {% elif current_user.can(Permission.ADMINISTRATOR) %}
+                <li><a class="nav-link" href="{{ url_for('posts.new_post') }}"><i class="pen square icon"></i>New
+                    Post</a></li>
+                <li><a class="nav-link" href="{{ url_for('users.account') }}"><i class="smile icon"></i>Profile</a>
+                </li>
+                <li><a class="nav-link" href="{{ url_for('posts.moderate') }}">Moderate Comments</a></li>
+                <li><a class="nav-link" href="{{ url_for('main.admin') }}">Admin</a></li>
+                <li><a class="nav-link" href="{{ url_for('users.logout') }}"><i class="sign-in icon"></i>Logout</a>
+                    {% else %}
+                <li><a class="nav-link" href="{{ url_for('posts.new_post') }}"><i class="pen square icon"></i>New
+                    Post</a></li>
+                <li><a class="nav-link" href="{{ url_for('users.account') }}"><i class="smile icon"></i>Profile</a>
+                </li>
+                <li><a class="nav-link" href="{{ url_for('users.logout') }}"><i class="sign-in icon"></i>Logout</a>
+                    {% endif %}
+                    {% else %}
+                <li><a class="nav-link" href="{{ url_for('users.login') }}"><i class="sign-in icon"></i>Login</a>
+                </li>
+                <li><a class="nav-link" href="{{ url_for('users.register') }}"><i class="user icon"></i>Register</a>
+                </li>
+                {% endif %}
+
+
+            </ul>
+        </div>
+    </nav>
+</header>
+
+<main class="container" id="main" role="main">
+    <div class="ui stackable grid">
+        <div class="ten wide column">
+            {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+            {% for category, message in messages %}
+            <div class="alert alert-{{category}}">
+                {{ message }}
+            </div>
+            {% endfor %}
+            {% endif %}
+            {% endwith %}
+            {% block content %}{% endblock content %}
+        </div>
+
+        <!--Side Bar Menu-->
+        <div class="six wide column">
+            {% block side_bar %} {% endblock side_bar %}
+
+        </div>
+    </div>
+</main>
+
+<!--Footer-->
+<footer id="footer">
+    <div class="page-footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 col-md-6 footer-info left">
+                    <h3>African Developers Forum</h3>
+                    <p>A forum developed for developers in Africa to come up with solutions for our Continent.</p>
+
+                    <img class="ui circular image" height="55" src="/static/site_pics/site_logo_2_trans_orange.png"
+                         width="55">
+
+                </div>
+                <div class="col-lg-3 col-md-6 footer-links">
+                    <h4>Useful Links</h4>
+                    <ul class="uk-list uk-list-divider">
+                        <li><i class="ion-ios-arrow-right"></i><a href="{{ url_for('main.home') }}">Home</a></li>
+                        <li><i class="ion-ios-arrow-right"></i><a href="{{ url_for('main.about') }}">About</a></li>
+                        <li><i class="ion-ios-arrow-right"></i><a
+                                href="{{ url_for('main.advertising') }}">Advertising</a></li>
+                        <li><i class="ion-ios-arrow-right"></i><a href="{{ url_for('main.contact') }}">Contact Us</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-md-6 footer-contact">
+                    <h4>Follow Us</h4>
+                    <a class="twitter" href="#"><i class=" large twitter icon"></i></a>
+                    <a class="facebook" href="#"><i class=" large facebook icon"></i></a>
+                    <a class="instagram" href="#"><i class="large instagram icon"></i></a>
+                    <a class="linkedin" href="#"><i class="large linkedin icon"></i></a>
+                </div>
+                <div class="col-lg-3 col-md-6 uk-inline">
+                    <h4>Our Newsletter</h4>
+                    <p>To receive the latest updates of development in Africa, enter your email: </p>
+                    <form action="/subscribe" method="post">
+                        <div class="uk-inline uk-margin">
+                            <!--suppress HtmlUnknownAttribute -->
+                            <!--                            <span class="uk-form-icon" uk-icon="icon: mail"></span>-->
+                            <input class="uk-input" required placeholder="Email address" name="submail" type="email"
+                                   id="submail">
+                            <label id="sub_error_email" style="color: red; display:none;"></label>
+                        </div>
+                        <!--<input type="submit" value="Subscribe">-->
+                        <button class="uk-button uk-button-primary" type="submit" id="subscribe">Subscribe</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <p class="footer-copyright text-center py-3 mb-0">Copyright &copy; AfriDevsForum 2018</p>
+</footer>
+
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script crossorigin="anonymous"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script crossorigin="anonymous"
+        integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+        src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+<script crossorigin="anonymous"
+        integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+        src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+<!--My JavaScript-->
+<script src="{{ url_for('static', filename='js/main.js') }}" type="text/javascript"></script>
+<!--UIKit JavaScript-->
+<script src="{{ url_for('static', filename='js/uikit.min.js') }} "></script>
+<script src="{{ url_for('static', filename='js/uikit-icons.min.js') }}"></script>
+
+<!--Semantic-UI-->
+<script
+        crossorigin="anonymous"
+        integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+        src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"></script>
+<!--    &lt;!&ndash;NPM Node.js&ndash;&gt;-->
+
+<!--    <script src="semantic/dist/semantic.min.js"></script>-->
+</body>
+</html>

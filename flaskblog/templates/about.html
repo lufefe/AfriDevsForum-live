@@ -1,0 +1,368 @@
+{% extends 'layout.html' %}
+{% block content %}
+
+<h1>About</h1>
+<ul class="uk-tab" data-uk-tab="{connect:'#about-tabs'}">
+    <li class="uk-active"><a href="">What is African Developers Forum ?</a></li>
+    <li><a href="">Frequently Asked Questions</a></li>
+    <li><a href="">Privacy Policy</a></li>
+</ul>
+
+<!-- This is the container of the content items -->
+<ul class="uk-switcher" id="about-tabs">
+    <li>
+        <p>African Developers Forum is simply a platform where developers from across the African continent share,
+            advise, and debate about their development experiences and the issues they have faced or still face. The aim
+            of this platform is to empower and equip developers with the right information and with the right tools to
+            build a better Africa. We believe Africa has the solutions to its problems, we just need the platform and
+            opportunities to showcase our skills and ideas. </p>
+
+        <div class="ui cards" wfd-id="220">
+            <div class="card" wfd-id="231">
+                <div class="content" wfd-id="232">
+                    <div class="header" wfd-id="235">Elliot Anikwa</div>
+                    <div class="meta" wfd-id="234">Developer</div>
+                    <div class="description" wfd-id="233">
+                        A platform to express ideas, get ideas, and execute ideas.
+                    </div>
+                </div>
+            </div>
+            <div class="card" wfd-id="226">
+                <div class="content" wfd-id="227">
+                    <div class="header" wfd-id="230">Avela Mkhonto</div>
+                    <div class="meta" wfd-id="229">Data Analyst</div>
+                    <div class="description" wfd-id="228">
+                        You can freely engage and exchange valuable information with people who have similar interests
+                        as you.
+                    </div>
+                </div>
+            </div>
+            <div class="card" wfd-id="221">
+                <div class="content" wfd-id="222">
+                    <div class="header" wfd-id="225">David Hess</div>
+                    <div class="meta" wfd-id="224">IT Auditor</div>
+                    <div class="description" wfd-id="223">
+                        I can get answers from others' experience. A great platform for innovators and young
+                        professionals.
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--        FOUNDER BOX -->
+        <!--        &lt;!&ndash;suppress HtmlUnknownAttribute &ndash;&gt;-->
+        <!--        <div class="ui card" wfd-id="221">-->
+        <!--            &lt;!&ndash;suppress HtmlUnknownAttribute &ndash;&gt;-->
+        <!--            <div class="content" wfd-id="222">-->
+        <!--                &lt;!&ndash;suppress HtmlUnknownAttribute &ndash;&gt;-->
+        <!--                <div class="header" wfd-id="225">-->
+        <!--                    Ayabonga Jumba-->
+        <!--                </div>-->
+        <!--                &lt;!&ndash;suppress HtmlUnknownAttribute &ndash;&gt;-->
+        <!--                <div class="meta" wfd-id="224">-->
+        <!--                    Founder-->
+        <!--                </div>-->
+        <!--                &lt;!&ndash;suppress HtmlUnknownAttribute &ndash;&gt;-->
+        <!--                <div class="description" wfd-id="223">-->
+        <!--                    "I founded this forum with the goal to unite Africans in discussing the future of our developers-->
+        <!--                    and how we can grow the continent with world class innovation and technology."-->
+        <!--                </div>-->
+        <!--            </div>-->
+        <!--        </div>-->
+
+        <!--		<p style="color: #ff00aa;">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem-->
+        <!--			Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a-->
+        <!--			galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but-->
+        <!--			also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s-->
+        <!--			with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop-->
+        <!--			publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>-->
+
+    </li>
+    <!--    FAQs -->
+    <li>
+        <h2>Frequently Asked Questions</h2>
+
+        <!--suppress HtmlUnknownAttribute -->
+        <div class="ui accordion" wfd-id="32">
+            <!--suppress HtmlUnknownAttribute -->
+            <div class="title" wfd-id="38">
+                <i class="dropdown icon"></i>
+                How to Register ?
+            </div>
+            <!--suppress HtmlUnknownAttribute -->
+            <div class="content" wfd-id="37">
+                <ol class="ui list">
+                    <!--suppress HtmlUnknownAttribute -->
+                    <li wfd-id="337">Click on <a href="{{ url_for('users.register') }}">Register</a></li>
+                    <!--suppress HtmlUnknownAttribute -->
+                    <li wfd-id="336">In the register page, fill in a username, email address, and your password</li>
+                    <!--suppress HtmlUnknownAttribute -->
+                    <li wfd-id="332">Click Sign Up</li>
+                    <!--suppress HtmlUnknownAttribute -->
+                    <li wfd-id="331">You would then have successfully registered at African Devs Forum :)</li>
+                </ol>
+            </div>
+
+            <!--suppress HtmlUnknownAttribute -->
+            <div class="title" wfd-id="36">
+                <i class="dropdown icon"></i>
+                How to write a Post ?
+            </div>
+            <!--suppress HtmlUnknownAttribute -->
+            <div class="content" wfd-id="35">
+                <ol class="ui list">
+                    <!--suppress HtmlUnknownAttribute -->
+                    <li wfd-id="337">Once <a href="{{ url_for('users.login') }}"> logged in</a>, you will see a New Post
+                        button on the navigation bar
+                    </li>
+                    <!--suppress HtmlUnknownAttribute -->
+                    <li wfd-id="336">Click New Post</li>
+                    <!--suppress HtmlUnknownAttribute -->
+                    <li wfd-id="332">Write the Title and Content of your post.</li>
+                    <li>Click on Post</li>
+                    <!--suppress HtmlUnknownAttribute -->
+                    <li wfd-id="331">You would then have successfully posted an article.</li>
+                </ol>
+
+            </div>
+
+            <!--suppress HtmlUnknownAttribute -->
+            <div class="title" wfd-id="34">
+                <i class="dropdown icon"></i>
+                How to edit your Profile ?
+            </div>
+            <!--suppress HtmlUnknownAttribute -->
+            <div class="content" wfd-id="33">
+
+                <ol class="ui list">
+                    <!--suppress HtmlUnknownAttribute -->
+                    <li wfd-id="337">Once <a href="{{ url_for('users.login') }}"> logged in</a>, you will see an Account
+                        button on the navigation bar
+                    </li>
+                    <!--suppress HtmlUnknownAttribute -->
+                    <li wfd-id="336">Click on Account</li>
+                    <!--suppress HtmlUnknownAttribute -->
+                    <li wfd-id="332">You can edit your Username and Email address.</li>
+                    <li>Click on Update when you are done</li>
+                    <!--suppress HtmlUnknownAttribute -->
+                    <li wfd-id="331">You would then have successfully updated at your details.</li>
+                </ol>
+            </div>
+
+            <!--suppress HtmlUnknownAttribute -->
+            <div class="title" wfd-id="34">
+                <i class="dropdown icon"></i>
+                Forgot your Password ?
+            </div>
+            <!--suppress HtmlUnknownAttribute -->
+            <div class="content" wfd-id="33">
+                <ol class="ui list">
+                    <!--suppress HtmlUnknownAttribute -->
+                    <li wfd-id="337">On the <a href="{{ url_for('users.login') }}"> log in</a> page, click on Forgot
+                        Password.
+                    </li>
+                    <!--suppress HtmlUnknownAttribute -->
+                    <li wfd-id="336">On the Reset page, enter the email address you registered with and click on the
+                        Request Password Reset button.
+                    </li>
+                    <!--suppress HtmlUnknownAttribute -->
+                    <li wfd-id="332">You will receive an email with a reset link. Click on the link.</li>
+                    <li>You will be taken to a Reset Password page, enter your new password and click on the Reset
+                        Password button.
+                    </li>
+                    <!--suppress HtmlUnknownAttribute -->
+                    <li wfd-id="331">Your password will then be reset and now you can login with your new password.</li>
+                </ol>
+
+            </div>
+
+            <!--suppress HtmlUnknownAttribute -->
+            <div class="title" wfd-id="34">
+                <i class="dropdown icon"></i>
+                View all posts of another user ?
+            </div>
+            <!--suppress HtmlUnknownAttribute -->
+            <div class="content" wfd-id="33">
+                <ol class="ui list">
+                    <!--suppress HtmlUnknownAttribute -->
+                    <li wfd-id="337">To view posts by another user, simply click on their username above their post.
+                    </li>
+                </ol>
+            </div>
+
+            <!--suppress HtmlUnknownAttribute -->
+            <div class="title" wfd-id="34">
+                <i class="dropdown icon"></i>
+                Edit your own Post ?
+            </div>
+            <!--suppress HtmlUnknownAttribute -->
+            <div class="content" wfd-id="33">
+
+                <ol class="ui list">
+                    <!--suppress HtmlUnknownAttribute -->
+                    <li wfd-id="337">Once <a href="{{ url_for('users.login') }}"> logged in</a>, you can edit your post
+                        by clicking on its title.
+                    </li>
+                    <!--suppress HtmlUnknownAttribute -->
+                    <li wfd-id="336">You will have the option to Update or Delete your post.</li>
+                    <li>To Update, click on the Update button.</li>
+                    <li>In the Update Post page, edit your post and click on Post to update.</li>
+                    <!--suppress HtmlUnknownAttribute -->
+                    <li wfd-id="332">To Delete, simply click on the Delete Button</li>
+                </ol>
+            </div>
+
+        </div>
+    </li>
+    <!--    Privacy Policy -->
+    <li>
+        <h1>Privacy Policy</h1>
+
+
+        <p>Effective date: December 06, 2018</p>
+
+
+        <p>African Developers Forum ("us", "we", or "our") operates the http://www.afridevs.com website (the
+            "Service").</p>
+
+        <p>This page informs you of our policies regarding the collection, use, and disclosure of personal data when you
+            use our Service and the choices you have associated with that data. Our Privacy Policy for African
+            Developers Forum is managed through <a
+                    href="https://www.freeprivacypolicy.com/free-privacy-policy-generator.php">Free Privacy Policy
+                Website</a>.</p>
+
+        <p>We use your data to provide and improve the Service. By using the Service, you agree to the collection and
+            use of information in accordance with this policy. Unless otherwise defined in this Privacy Policy, terms
+            used in this Privacy Policy have the same meanings as in our Terms and Conditions, accessible from
+            http://www.afridevs.com</p>
+
+
+        <h2>Information Collection And Use</h2>
+
+        <p>We collect several different types of information for various purposes to provide and improve our Service to
+            you.</p>
+
+        <h3>Types of Data Collected</h3>
+
+        <h4>Personal Data</h4>
+
+        <p>While using our Service, we may ask you to provide us with certain personally identifiable information that
+            can be used to contact or identify you ("Personal Data"). Personally identifiable information may include,
+            but is not limited to:</p>
+
+        <ul>
+            <li>Email address</li>
+            <li>Cookies and Usage Data</li>
+        </ul>
+
+        <h4>Usage Data</h4>
+
+        <p>We may also collect information how the Service is accessed and used ("Usage Data"). This Usage Data may
+            include information such as your computer's Internet Protocol address (e.g. IP address), browser type,
+            browser version, the pages of our Service that you visit, the time and date of your visit, the time spent on
+            those pages, unique device identifiers and other diagnostic data.</p>
+
+        <h4>Tracking & Cookies Data</h4>
+        <p>We use cookies and similar tracking technologies to track the activity on our Service and hold certain
+            information.</p>
+        <p>Cookies are files with small amount of data which may include an anonymous unique identifier. Cookies are
+            sent to your browser from a website and stored on your device. Tracking technologies also used are beacons,
+            tags, and scripts to collect and track information and to improve and analyze our Service.</p>
+        <p>You can instruct your browser to refuse all cookies or to indicate when a cookie is being sent. However, if
+            you do not accept cookies, you may not be able to use some portions of our Service.</p>
+        <p>Examples of Cookies we use:</p>
+        <ul>
+            <li><strong>Session Cookies.</strong> We use Session Cookies to operate our Service.</li>
+            <li><strong>Preference Cookies.</strong> We use Preference Cookies to remember your preferences and various
+                settings.
+            </li>
+            <li><strong>Security Cookies.</strong> We use Security Cookies for security purposes.</li>
+        </ul>
+
+        <h2>Use of Data</h2>
+
+        <p>African Developers Forum uses the collected data for various purposes:</p>
+        <ul>
+            <li>To provide and maintain the Service</li>
+            <li>To notify you about changes to our Service</li>
+            <li>To allow you to participate in interactive features of our Service when you choose to do so</li>
+            <li>To provide customer care and support</li>
+            <li>To provide analysis or valuable information so that we can improve the Service</li>
+            <li>To monitor the usage of the Service</li>
+            <li>To detect, prevent and address technical issues</li>
+        </ul>
+
+        <h2>Transfer Of Data</h2>
+        <p>Your information, including Personal Data, may be transferred to — and maintained on — computers located
+            outside of your state, province, country or other governmental jurisdiction where the data protection laws
+            may differ than those from your jurisdiction.</p>
+        <p>If you are located outside South Africa and choose to provide information to us, please note that we transfer
+            the data, including Personal Data, to South Africa and process it there.</p>
+        <p>Your consent to this Privacy Policy followed by your submission of such information represents your agreement
+            to that transfer.</p>
+        <p>African Developers Forum will take all steps reasonably necessary to ensure that your data is treated
+            securely and in accordance with this Privacy Policy and no transfer of your Personal Data will take place to
+            an organization or a country unless there are adequate controls in place including the security of your data
+            and other personal information.</p>
+
+        <h2>Disclosure Of Data</h2>
+
+        <h3>Legal Requirements</h3>
+        <p>African Developers Forum may disclose your Personal Data in the good faith belief that such action is
+            necessary to:</p>
+        <ul>
+            <li>To comply with a legal obligation</li>
+            <li>To protect and defend the rights or property of African Developers Forum</li>
+            <li>To prevent or investigate possible wrongdoing in connection with the Service</li>
+            <li>To protect the personal safety of users of the Service or the public</li>
+            <li>To protect against legal liability</li>
+        </ul>
+
+        <h2>Security Of Data</h2>
+        <p>The security of your data is important to us, but remember that no method of transmission over the Internet,
+            or method of electronic storage is 100% secure. While we strive to use commercially acceptable means to
+            protect your Personal Data, we cannot guarantee its absolute security.</p>
+
+        <h2>Service Providers</h2>
+        <p>We may employ third party companies and individuals to facilitate our Service ("Service Providers"), to
+            provide the Service on our behalf, to perform Service-related services or to assist us in analyzing how our
+            Service is used.</p>
+        <p>These third parties have access to your Personal Data only to perform these tasks on our behalf and are
+            obligated not to disclose or use it for any other purpose.</p>
+
+
+        <h2>Links To Other Sites</h2>
+        <p>Our Service may contain links to other sites that are not operated by us. If you click on a third party link,
+            you will be directed to that third party's site. We strongly advise you to review the Privacy Policy of
+            every site you visit.</p>
+        <p>We have no control over and assume no responsibility for the content, privacy policies or practices of any
+            third party sites or services.</p>
+
+
+        <h2>Children's Privacy</h2>
+        <p>Our Service does not address anyone under the age of 18 ("Children").</p>
+        <p>We do not knowingly collect personally identifiable information from anyone under the age of 18. If you are a
+            parent or guardian and you are aware that your Children has provided us with Personal Data, please contact
+            us. If we become aware that we have collected Personal Data from children without verification of parental
+            consent, we take steps to remove that information from our servers.</p>
+
+
+        <h2>Changes To This Privacy Policy</h2>
+        <p>We may update our Privacy Policy from time to time. We will notify you of any changes by posting the new
+            Privacy Policy on this page.</p>
+        <p>We will let you know via email and/or a prominent notice on our Service, prior to the change becoming
+            effective and update the "effective date" at the top of this Privacy Policy.</p>
+        <p>You are advised to review this Privacy Policy periodically for any changes. Changes to this Privacy Policy
+            are effective when they are posted on this page.</p>
+
+
+        <h2>Contact Us</h2>
+        <p>If you have any questions about this Privacy Policy, please contact us:</p>
+        <ul>
+            <li>By email: admin@afridevsforum.com</li>
+
+            <li>By phone number: 0826456053</li>
+        </ul>
+    </li>
+</ul>
+
+{% endblock content %}

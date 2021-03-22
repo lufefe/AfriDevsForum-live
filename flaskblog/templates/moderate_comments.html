@@ -1,0 +1,70 @@
+{% extends 'layout.html' %}
+{% block title %}ADF - Comment Moderation{% endblock %}
+
+{% block content %}
+<div class="ui dividing header page-header">
+    <h1>Comment Moderation</h1>
+</div>
+{% set moderate = True %}
+<!--suppress HtmlUnknownAttribute -->
+<div class="ui comments" wfd-id="196">
+    {% for comment in comments %}
+    <!--suppress HtmlUnknownAttribute -->
+    <div class="comment" wfd-id="219">
+        <a class="avatar">
+            <img src="{{ url_for('static', filename='profile_pics/' + comment.author.image_file)}}">
+        </a>
+        <!--suppress HtmlUnknownAttribute -->
+        <div class="content" wfd-id="220">
+            <a class="author">{{comment.author.username}}</a>
+            <!--suppress HtmlUnknownAttribute -->
+            <div class="metadata" wfd-id="223">
+                <!--suppress HtmlUnknownAttribute -->
+                <span class="date" wfd-id="224">{{ moment(comment.timestamp).fromNow() }}</span>
+            </div>
+
+            {% if comment.disabled %}
+            <!--suppress HtmlUnknownAttribute -->
+            <div class="meta" wfd-id="222"><i>This comment has been disabled by a moderator.</i></div>
+            {% endif %}
+            {% if moderate or not comment.disabled %}
+            {% if comment.body_html %}
+            <!--suppress HtmlUnknownAttribute -->
+            <div class="text" wfd-id="222">{{ comment.body_html | safe }}</div>
+            {% else %}
+            <!--suppress HtmlUnknownAttribute -->
+            <div class="text" wfd-id="222">{{ comment.body }}</div>
+            {% endif %}
+            {% endif %}
+        </div>
+    </div>
+
+    {% if moderate %}
+    <br>
+    {% if comment.disabled %}
+    <a class="btn btn-primary btn-xs" href="{{ url_for('.moderate_enable',
+				id=comment.id, page=page) }}">Enable</a>
+    {% else %}
+    <a class="btn btn-danger btn-xs" href="{{ url_for('.moderate_disable',
+				id=comment.id, page=page) }}">Disable</a>
+    {% endif %}
+    {% endif %}
+    {% endfor %}
+
+</div>
+
+<!-- For showing the page number links at the bottom of the posts -->
+{% for page_num in pagination.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
+{% if page_num %}
+{% if pagination.page == page_num %}
+<a class="btn btn-info mb-4" href="{{ url_for('posts.moderate', page=page_num) }}">{{ page_num }}</a>
+{% else %}
+<a class="btn btn-outline-info mb-4" href="{{ url_for('posts.moderate', page=page_num) }}">{{ page_num }}</a>
+{% endif %}
+{% else %}
+...
+{% endif %}
+{% endfor %}
+
+{% endblock content%}
+

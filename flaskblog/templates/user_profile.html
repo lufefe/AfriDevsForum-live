@@ -1,0 +1,77 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<h1 class="mb-3">Posts by {{ user.username }} ({{ posts.total }})</h1>
+
+{% for post in posts.items %}
+<article class="media content-section">
+    <!-- <img class="rounded-circle article-img" src="{{ url_for('static', filename='profile_pics/' + post.author.image_file) }}">-->
+    <div class="media-body">
+        <div class="article-metadata">
+            <a class="mr-2" href="#" id="username">{{ post.author.username }}</a>
+            <!-- displays date in Y-m-d format-->
+            <small class="text-muted">{{ post.date_posted.strftime('%Y-%m-%d') }}</small>
+        </div>
+        <!-- anchor tag goes to post route and passes post_id as an argument (passing the id of the selected post) -->
+        <h2><a class="article-title" href="{{ url_for('posts.post', post_id=post.id) }}">{{ post.title }}</a></h2>
+        {% if post.content|length > 400 %}
+        <p class="article-content">{{ post.content | truncate(400)| safe}}</p> <!-- safe filter is for HTML escaping-->
+        <a class="btn btn-outline-info mb-4" href="{{ url_for('posts.post', post_id=post.id) }}">Read more </a>
+        {% else %}
+        <p class="article-content">{{ post.content | safe}}</p>
+        {% endif %}
+    </div>
+</article>
+{% endfor %}
+<!-- For showing the page number links at the bottom of the posts -->
+{% for page_num in posts.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
+{% if page_num %}
+{% if posts.page == page_num %}
+<a class="btn btn-info mb-4" href="{{ url_for('users.user_profile',username=user.username, page=page_num) }}">{{
+    page_num }}</a>
+{% else %}
+<a class="btn btn-outline-info mb-4" href="{{ url_for('users.user_profile',username=user.username, page=page_num) }}">{{
+    page_num }}</a>
+{% endif %}
+{% else %}
+...
+{% endif %}
+{% endfor %}
+
+{% endblock content %}
+
+{% block side_bar %}
+<!--suppress HtmlUnknownAttribute -->
+<div class="ui centered card" wfd-id="341">
+    <!--suppress HtmlUnknownAttribute -->
+    <div class="image" wfd-id="347">
+        <img src="{{ image_file }}">
+    </div>
+    <!--suppress HtmlUnknownAttribute -->
+    <div class="content" wfd-id="343">
+        <a class="header">
+            {% if user.name %}
+            {{ user.name }}
+            {% else %}
+            {{ user.username }}
+            {% endif %}</a>
+        <!--suppress HtmlUnknownAttribute -->
+        <div class="meta" wfd-id="345">
+            <!--suppress HtmlUnknownAttribute -->
+            <span class="date" wfd-id="346">Member since: {{ moment(user.member_since).format('L') }}</span>
+        </div>
+        <!--suppress HtmlUnknownAttribute -->
+        <div class="description" wfd-id="344">
+            {% if user.about_me %}<p>{{ user.about_me }}</p>{% endif %}
+        </div>
+    </div>
+    <!--suppress HtmlUnknownAttribute -->
+    <div class="extra content" wfd-id="342">
+        <a href="#">
+            <i class="globe icon"></i>
+            From: {{ user.country }}
+        </a>
+    </div>
+</div>
+
+{% endblock side_bar%}

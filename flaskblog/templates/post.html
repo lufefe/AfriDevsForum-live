@@ -1,0 +1,165 @@
+{% extends 'layout.html' %}
+{% block content %}
+<article class="media content-section">
+    <img class="rounded-circle article-img"
+         src="{{ url_for('static', filename='profile_pics/' + post.author.image_file) }}">
+    <div class="media-body">
+        <div class="article-metadata">
+            <a class="mr-2" href="{{ url_for('users.user_profile', username=post.author.username) }}" id="username">{{
+                post.author.username }}</a>
+            <!-- displays date in Y-m-d format-->
+            <small class="text-muted">{{ post.date_posted.strftime('%Y-%m-%d') }}</small>
+            {% if post.author == current_user %}
+            <div>
+                <a class="btn btn-secondary btn-sm mt-1 mb-1"
+                   href="{{ url_for('posts.update_post', post_id=post.id) }}">Update</a>
+                <button class="btn btn-danger btn-sm m-1" data-target="#deleteModal" data-toggle="modal"
+                        type="button">Delete
+                </button>
+            </div>
+
+            {% endif %}
+
+        </div>
+        <h2 class="article-title">{{ post.title }}</h2>
+        <p class="article-content">{{ post.content| safe }}</p>
+
+        <!--suppress HtmlUnknownAttribute -->
+        <div class="ui three column grid" id="tags-menu" wfd-id="226">
+            {% for i in post.tag.all() %}
+            <!--suppress HtmlUnknownAttribute -->
+            <div class="column" wfd-id="229">
+                <a class="ui tag label" href="#">{{ i.name }}</a>
+            </div>
+            {% endfor %}
+        </div>
+
+    </div>
+    <div class="article-metadata-comment">
+        <a href="{{ url_for('.post', post_id=post.id) }}#comments">
+				<span class="label label-primary">
+					{{ post.comments.count() }} Comments
+				</span>
+        </a>
+    </div>
+
+
+</article>
+
+
+<!--Comments-->
+<!--suppress HtmlUnknownAttribute -->
+<div class="ui comments" wfd-id="196">
+    {% if current_user.is_authenticated %}
+    <form action="" class="ui reply form" enctype="multipart/form-data" method="POST">
+        {{ form.hidden_tag() }}
+        <!--suppress HtmlUnknownAttribute -->
+        <div class="ui field" wfd-id="152">
+            <div class="form-group">
+                {{ form.body.label(class='form-control-label') }}
+                {{ form.body(class='form-control form-control-lg') }}
+            </div>
+        </div>
+        <div class="form-group">
+            {{form.submit(class='btn btn-info')}}
+        </div>
+    </form>
+    {% endif %}
+    {% if post.comments.count() > 0 %}
+    <h3 class="ui dividing header">Comments</h3>
+
+    {% for comment in comments %}
+    <!--suppress HtmlUnknownAttribute -->
+    <div class="comment" wfd-id="219">
+        <a class="avatar">
+            <img src="{{ url_for('static', filename='profile_pics/' + comment.author.image_file) }}">
+        </a>
+        <!--suppress HtmlUnknownAttribute -->
+        <div class="content" wfd-id="220">
+            <a class="author">{{comment.author.username}}</a>
+            <!--suppress HtmlUnknownAttribute -->
+            <div class="metadata" wfd-id="223">
+                <!--suppress HtmlUnknownAttribute -->
+                <span class="date" wfd-id="224">{{ moment(comment.timestamp).fromNow() }}</span>
+            </div>
+
+            {% if comment.disabled %}
+            <!--suppress HtmlUnknownAttribute -->
+            <div class="text" wfd-id="222"><i>This comment has been disabled by a moderator.</i></div>
+            {% endif %}
+            {% if moderate or not comment.disabled %}
+            {% if comment.body_html %}
+            <!--suppress HtmlUnknownAttribute -->
+            <div class="text" wfd-id="222">{{ comment.body_html | safe }}</div>
+            {% else %}
+            <!--suppress HtmlUnknownAttribute -->
+            <div class="text" wfd-id="222">{{ comment.body }}</div>
+            {% endif %}
+            {% endif %}
+
+            <!--			{% if post.author == current_user %}-->
+            <!--			<form class="ui reply form" wfd-id="197">-->
+            <!--				<grammarly-extension style="position: absolute; top: 0px; left: 0px; pointer-events: none;"-->
+            <!--									 class="_1KJtL"></grammarly-extension>-->
+            <!--				<div class="field" wfd-id="199">-->
+            <!--					<textarea wfd-id="270" spellcheck="false"></textarea>-->
+            <!--				</div>-->
+            <!--				<div class="ui blue labeled submit icon button" wfd-id="198">-->
+            <!--					<i class="icon edit"></i> Add Reply-->
+            <!--				</div>-->
+            <!--			</form>-->
+            <!--			{% endif %}-->
+        </div>
+    </div>
+    {% endfor %}
+
+    {% if moderate %}
+    <br>
+    {% if comment.disabled %}
+    <a class="btn btn-default btn-xs" href="{{ url_for('.moderate_enable',
+			id=comment.id, page=page) }}">Enable</a>
+    {% else %}
+    <a class="btn btn-danger btn-xs" href="{{ url_for('.moderate_disable',
+			id=comment.id, page=page) }}">Disable</a>
+    {% endif %}
+    {% endif %}
+
+    {% else %}
+    <h3 class="ui dividing header">No Comments</h3>
+    {% endif %}
+
+</div>
+
+
+<!-- Modal -->
+<div aria-hidden="true" aria-labelledby="deleteModalLabel" class="modal fade" id="deleteModal" role="dialog"
+     tabindex="-1">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteModalLabel">Delete Post ?</h5>
+                <button aria-label="Close" class="close" data-dismiss="modal" type="button">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" data-dismiss="modal" type="button">Close</button>
+                <form action="{{ url_for('posts.delete_post', post_id=post.id) }}" method="POST">
+                    <input class="btn btn-danger" type="submit" value="Delete">
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+$(document).ready(function() {
+    $('.six').remove();
+    $('.ten').addClass('twelve').removeClass('ten');
+    $(".twelve").css("width", "80%");
+});
+
+
+</script>
+
+{% endblock content %}

@@ -1,0 +1,159 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+
+<!-- MODAL BASED ON USER LOCATION - ONLY AFRICA -->
+
+<!--<div class="ui basic modal">-->
+<!--  <div class="ui icon header">-->
+<!--    <i class="globe icon"></i>-->
+<!--    Location Location Location-->
+<!--  </div>-->
+<!--  <div class="content">-->
+<!--    <p>We have noticed that you're not located in the African continent. This application is exclusively for Africans in Africa.</p>-->
+<!--  </div>-->
+<!--    <div class="actions">-->
+<!--    <div class="ui red basic cancel inverted button">-->
+<!--      <i class="remove icon"></i>-->
+<!--      No-->
+<!--    </div>-->
+<!--    <div class="ui green ok inverted button">-->
+<!--      <i class="checkmark icon"></i>-->
+<!--      Yes-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</div>-->
+
+<!--HOME PAGE POSTS LOAD-->
+{% for post in posts.items %}
+<article class="media content-section">
+    <img class="rounded-circle article-img"
+         src="{{ url_for('static', filename='profile_pics/' + post.author.image_file) }}">
+    <div class="media-body">
+        <div class="article-metadata">
+            <!--			TODO ***** if user is current_user replace link with edit_profile link -->
+            <a class="mr-2" href="{{ url_for('users.user_profile', username=post.author.username) }}" id="username">{{
+                post.author.username }}</a>
+            <!-- displays date in Y-m-d format-->
+            <small class="text-muted">{{ post.date_posted.strftime('%Y-%m-%d') }}</small>
+            <!--			<small class="text-muted">{{ moment(post.date_posted).fromNow() }}</small>-->
+        </div>
+        <!-- anchor tag goes to post route and passes post_id as an argument (passing the id of the selected post) -->
+        <h2><a class="article-title" href="{{ url_for('posts.post', post_id=post.id) }}">{{ post.title }}</a></h2>
+        {% if post.content|length > 400 %}
+        <p class="article-content">{{ post.content |striptags |truncate(400)}}</p>
+        <!-- safe filter is for HTML escaping-->
+        <a class="btn btn-outline-info mb-4" href="{{ url_for('posts.post', post_id=post.id) }}">Read more </a>
+        {% else %}
+        <p class="article-content">{{ post.content|striptags }}</p>
+        {% endif %}
+
+    </div>
+
+</article>
+{% endfor %}
+
+<!-- For showing the page number links at the bottom of the posts -->
+{% for page_num in posts.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
+{% if page_num %}
+{% if posts.page == page_num %}
+<a class="btn btn-info mb-4" href="{{ url_for('main.home', page=page_num) }}">{{ page_num }}</a>
+{% else %}
+<a class="btn btn-outline-info mb-4" href="{{ url_for('main.home', page=page_num) }}">{{ page_num }}</a>
+{% endif %}
+{% else %}
+...
+{% endif %}
+{% endfor %}
+
+
+{% endblock content %}
+
+
+{% block side_bar %}
+<div class="side-menu">
+    <!--suppress HtmlUnknownAttribute -->
+    <div class="ui vertical menu fluid" wfd-id="184">
+        <!--suppress HtmlUnknownAttribute -->
+        <div class="item" wfd-id="189">
+            <form action="{{ url_for('main.search') }}" class="ui form" method="post">
+                <!--suppress HtmlUnknownAttribute -->
+                <div class="ui action input" wfd-id="52">
+                    <!--suppress HtmlUnknownAttribute -->
+                    <input name="query" placeholder="Search..." type="text" wfd-id="192">
+                    <!--suppress HtmlUnknownAttribute -->
+                    <button class="ui icon button" type="submit" wfd-id="224">
+                        <i class="search icon"></i>
+                    </button>
+
+                </div>
+            </form>
+        </div>
+
+        <!--suppress HtmlUnknownAttribute -->
+        <div class="item" wfd-id="187">
+            {% if current_user.is_authenticated %}
+            <h5 class="ui header">Posts</h5>
+            <!--suppress HtmlUnknownAttribute -->
+            <div class="menu" wfd-id="188">
+                <p><a class="item" href="{{ url_for('posts.new_post') }}">Create New Post</a></p>
+                <p><a class="item" href="{{ url_for('users.user_profile',username=current_user.username) }}">View My
+                    Posts</a></p>
+                {% else %}
+                <h5 class="ui header">Site stats</h5>
+                <!--suppress HtmlUnknownAttribute -->
+                <div class="menu" wfd-id="188">
+                    <!--suppress HtmlUnknownAttribute -->
+                    <div class="ui two statistics" wfd-id="73">
+                        <!--suppress HtmlUnknownAttribute -->
+                        <div class="statistic" wfd-id="83">
+                            <!--suppress HtmlUnknownAttribute -->
+                            <div class="value" wfd-id="85">{{user_count}}</div>
+                            <!--suppress HtmlUnknownAttribute -->
+                            <div class="label" wfd-id="84">Members</div>
+                        </div>
+                        <!--suppress HtmlUnknownAttribute -->
+                        <div class="statistic" wfd-id="77">
+                            <!--suppress HtmlUnknownAttribute -->
+                            <div class="value" wfd-id="79">{{ post_count }}</div>
+                            <!--suppress HtmlUnknownAttribute -->
+                            <div class="label" wfd-id="78">Posts</div>
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!--		<div class="item">-->
+            <!--			<h5 class="ui header">Trending</h5>-->
+            <!--			<div class="menu" wfd-id="188">-->
+            <!--				<a href="#" class="item">Trending posts here</a>-->
+            <!--			</div>-->
+            <!--		</div>-->
+
+            <!--		<div class="item">-->
+            <!--			<h5 class="ui header">Most Viewed</h5>-->
+            <!--			<div class="menu" wfd-id="188">-->
+            <!--				<a href="#" class="item">Most viewed posts here</a>-->
+            <!--			</div>-->
+            <!--		</div>-->
+
+            <div class="item">
+                <h5 class="ui header">Tags</h5>
+                <!--suppress HtmlUnknownAttribute -->
+                <div class="menu" wfd-id="188">
+                    <!--suppress HtmlUnknownAttribute -->
+                    <div class="ui three column grid" id="tags-menu" wfd-id="226">
+                        {% for tag in tags %}
+                        <!--suppress HtmlUnknownAttribute -->
+                        <div class="column" wfd-id="229"><a class="ui tag label" href="#">{{ tag.name }}</a></div>
+                        {% endfor %}
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock side_bar %}

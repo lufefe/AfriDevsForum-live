@@ -1,0 +1,63 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-GB">
+
+<body style="margin: 0; padding: 0;">
+
+<table align="center" border="0" cellpadding="0" cellspacing="0" width="600"
+       style="border-collapse: collapse; border: 1px solid #cccccc;">
+    <tr>
+        <td>
+            <!--        TODO: Implement image (email banner)-->
+        </td>
+    </tr>
+    <tr>
+        <td bgcolor="#ffffff" style="padding: 40px 30px 40px 30px;">
+            <table border="0" cellpadding="0" cellspacing="0" width="100%" style="border-collapse: collapse;">
+                <tr>
+                    <td style="color: #153643; font-family: Arial, sans-serif;">
+                        <h1 style="font-size: 24px; margin: 0;">Hi {{user.username}}</h1>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="color: #153643; font-family: Arial, sans-serif; font-size: 16px; line-height: 24px; padding: 20px 0 30px 0;">
+                        <p style="margin: 0;">To confirm your email:</p>
+                        <a href="{{ url_for('users.confirm', token = token, _external = True) }}">Click here</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p>If you did not make this request then simply ignore this email and no changes will be
+                            made.</p>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <tr>
+        <td bgcolor="#212529" style="padding: 30px 30px;">
+            <table border="0" cellpadding="0" cellspacing="0" width="100%" style="border-collapse: collapse;">
+                <tr>
+                    <td style="color: #ffffff; font-family: Montserrat, sans-serif; font-size: 14px;">
+                        <p style="margin: 0;">&copy; ADF 2020<br/>
+                    </td>
+                    <td align="right">
+                        <table border="0" cellpadding="0" cellspacing="0" style="border-collapse: collapse;">
+                            <tr>
+                                <td>
+                                    <a class="facebook" href="#"><i class=" large facebook icon"></i></a>
+                                </td>
+                                <td style="font-size: 0; line-height: 0;" width="20">&nbsp;</td>
+                                <td>
+                                    <a class="twitter" href="#"><i class=" large twitter icon"></i></a>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table>
+</body>
+</html>

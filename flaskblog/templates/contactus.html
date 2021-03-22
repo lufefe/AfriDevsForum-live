@@ -1,0 +1,78 @@
+{% extends 'layout.html' %}
+{% block content %}
+
+<section class="contact" id="contact-form">
+    <div class="contact-container">
+        <div class="heading text-center">
+            <h2>Contact
+                <span> Us </span></h2>
+            <p>If you have any queries, please fill in the information below.</p>
+        </div>
+
+        <div class="row">
+            <div class="col-md-7">
+                <form action="/contactnow" method="post" id="contactnow-form">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <input class="form-control" required placeholder="Name" type="text" name="name">
+                        </div>
+                        <div class="col-sm-6">
+                            <input class="form-control" required placeholder="Email" type="email" name="c_email" id="c_email">
+                            <label id="error_c_email" style="color: red; display:none;"></label>
+                        </div>
+                        <div class="col-sm-12">
+                            <input class="form-control" required placeholder="Subject" type="text" name="subject">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <textarea class="form-control" required id="comment" placeholder="Message" rows="5" name="message"></textarea>
+                    </div>
+                    <button class="btn btn-block" type="submit">Send Now</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock content %}
+
+{% block side_bar %}
+
+
+<section class="contact">
+    <div class="contact-container">
+        <div class="row">
+            <div class="col-md-5">
+                <div class="title">
+                    <h3>Contact details</h3>
+                    <p>You may also contact us here: </p>
+                </div>
+                <div class="content">
+                    <!-- Info-1 -->
+                    <div class="info">
+
+                        <h4 class="d-inline-block">PHONE :
+                            <br>
+                            <span>+071 895 1191</span></h4>
+                    </div>
+                    <!-- Info-2 -->
+                    <div class="info">
+
+                        <h4 class="d-inline-block">EMAIL :
+                            <br>
+                            <span>admin@afridevsforum.com</span></h4>
+                    </div>
+                    <!-- Info-3 -->
+                    <div class="info">
+
+                        <h4 class="d-inline-block">ADDRESS :<br>
+                            <span>0A Jason Street, Vorna Valley, Midrand, Gauteng. 1686</span></h4>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</section>
+
+{% endblock side_bar %}

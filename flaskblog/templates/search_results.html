@@ -1,0 +1,40 @@
+{% extends 'layout.html' %}
+{% block content %}
+
+{% if posts[0] is defined %} <!-- checks if there are posts -->
+<h1>Search results for "{{ query }}":</h1>
+{% for post in posts %}
+<article class="media content-section">
+    <img class="rounded-circle article-img"
+         src="{{ url_for('static', filename='profile_pics/' + post.author.image_file) }}">
+    <div class="media-body">
+        <div class="article-metadata">
+            <!--			TODO ***** if user is current_user replace link with edit_profile link -->
+            <a class="mr-2" href="{{ url_for('users.user_profile', username=post.author.username) }}" id="username">{{
+                post.author.username }}</a>
+            <!-- displays date in Y-m-d format-->
+            <small class="text-muted">{{ post.date_posted.strftime('%Y-%m-%d') }}</small>
+            <!--			<small class="text-muted">{{ moment(post.date_posted).fromNow() }}</small>-->
+        </div>
+        <!-- anchor tag goes to post route and passes post_id as an argument (passing the id of the selected post) -->
+        <h2><a class="article-title" href="{{ url_for('posts.post', post_id=post.id) }}">{{ post.title }}</a></h2>
+        {% if post.content|length > 400 %}
+        <p class="article-content">{{ post.content | truncate(400)| safe}}</p> <!-- safe filter is for HTML escaping-->
+        <a class="btn btn-outline-info mb-4" href="{{ url_for('posts.post', post_id=post.id) }}">Read more </a>
+        {% else %}
+        <p class="article-content">{{ post.content|safe}}</p>
+        {% endif %}
+
+    </div>
+
+</article>
+{% endfor %}
+
+{% else %}
+<h2 class="ui center aligned icon header">
+    <i class="search icon"></i>
+    Sorry, we could not find any results matching "{{ query }}"
+</h2>
+{% endif %}
+
+{% endblock content %}

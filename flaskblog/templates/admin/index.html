@@ -1,0 +1,16 @@
+{% extends 'admin/master.html' %}
+
+{% block title %}
+Admin - ADF
+{% endblock title %}
+
+{% block body %}
+<div class="jumbotron">
+    <h1 class="display-4">Hello, {{ current_user.username }}!</h1>
+    <p class="lead">This is the admin site for AfriDevsForum.</p>
+    <hr class="my-4">
+    <p>To learn more about your role, <a href="#">Click here.</a></p>
+    <a class="btn btn-primary btn-lg" href="{{ url_for('main.home') }}" role="button">Go To Blog</a>
+    <a class="btn btn-primary btn-lg" href="{{ url_for('users.logout') }}" role="button">Logout</a>
+</div>
+{% endblock body%}
