@@ -8,7 +8,7 @@ from flask_migrate import Migrate
 from flask_moment import Moment
 from flask_sqlalchemy import SQLAlchemy
 
-from flaskblog.config import DevelopmentConfig
+from flaskblog.config import ProductionConfig
 
 db = SQLAlchemy()  # new instance of a database
 migrate = Migrate()  # migrate tracks db changes just like git
@@ -30,7 +30,7 @@ def create_app():
     app = Flask(__name__)
     with app.app_context():
         # TODO : Change config class to Production for deployment
-        app.config.from_object(DevelopmentConfig)
+        app.config.from_object(ProductionConfig)
         initialize_extensions(app)
         register_blueprints(app)
     return app
