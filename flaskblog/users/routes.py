@@ -3,6 +3,7 @@ import json
 import requests
 from flask import render_template, url_for, flash, redirect, request, abort, current_app, Blueprint
 from flask_login import login_user, current_user, logout_user, login_required
+
 from flaskblog import db, bcrypt
 from flaskblog.decorators import admin_required
 from flaskblog.models import User, Post, Role
@@ -67,7 +68,7 @@ def register():
         db.session.add(user)
         db.session.commit()
         send_confirmation_email(user)
-        flash('A confirmation email has been sent to you by email.', 'info')
+        flash('A confirmation email has been sent to you by email. Please check your inbox or spam folder.', 'info')
         # flash('Your account has been created! You are now able to log in',
         #     'success')  # messages that pop up, 'success' is used for bootstrap
         subscribe_user(user.email, "devs@app.afridevsforum.com", app.config['MAIL_API_KEY'])
